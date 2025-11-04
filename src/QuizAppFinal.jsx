@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef  } from 'react';
 import questions from './questions404_full.json';
 
 export default function QuizAppFinal() {
@@ -12,8 +12,9 @@ export default function QuizAppFinal() {
   const [timeLeftSec, setTimeLeftSec] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [showResults, setShowResults] = useState(false);
-
-  const totalQuestions = questions.length;
+  
+  const timerRef = useRef(null);
+  const totalQuestions = (questions && questions.length) || 0;
 
   const progress = useMemo(()=>{
     const answeredIds = Object.keys(answers).map(x=>parseInt(x)).filter(x=>!isNaN(x));
